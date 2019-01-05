@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	JBoss, Home of Professional Open Source
+     	JBoss, Home of Professional Open Source
 	Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
 	contributors by the @authors tag. See the copyright.txt in the
 	distribution for a full listing of individual contributors.
@@ -21,7 +21,7 @@
 
 	<groupId>com.redhat.developers.guestbook</groupId>
 	<artifactId>guestbook-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.5</version>
 	<packaging>war</packaging>
 	<name>guestbook</name>
 	<description>Guestbook microservice running on WildFly Swarm</description>
@@ -36,10 +36,11 @@
 	</licenses>
 
 	<properties>
+		
 		<!-- Explicitly declaring the source encoding eliminates the following
-			message: -->
+		     			message: -->
 		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
-			resources, i.e. build is platform dependent! -->
+		     			resources, i.e. build is platform dependent! -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- JBoss dependency versions -->
@@ -55,15 +56,62 @@
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-
+	
 		<version.mysql>5.1.38</version.mysql>
+		<docker-registry-internal>http://192.168.56.101:5000</docker-registry-internal>
+
 	</properties>
 
-
+	<!--  define our 3 standard maven repositories  -->
+<repositories>
+<repository>
+<id>com.redhat.developers.guestbook</id>
+<name>DevOps release repository</name>
+<url>
+http://192.168.56.100:8081/repository/maven-hosted-releaseversions/
+</url>
+<releases>
+<enabled>true</enabled>
+<updatePolicy>never</updatePolicy>
+</releases>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+</repository>
+<repository>
+<id>com.redhat.developers.guestbook.isolated</id>
+<name>DevOps snapshots repository</name>
+<url>
+http://192.168.56.100:8081/repository/maven-hosted-releaseversions/
+</url>
+<releases>
+<enabled>false</enabled>
+<updatePolicy>never</updatePolicy>
+</releases>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</repository>
+<repository>
+<id>com.redhat.developers.guestbook.isolatedi-deploy-pointer</id>
+<name>DevOps thirdparty repository</name>
+<url>
+http://192.168.56.101:8081/repository/maven-hosted-releaseversions/
+</url>
+<releases>
+<enabled>true</enabled>
+<updatePolicy>never</updatePolicy>
+</releases>
+<snapshots>
+<enabled>false</enabled>
+</snapshots>
+</repository>
+</repositories>
+ 
 	<dependencyManagement>
 		<dependencies>
 			<!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill
-				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+			     				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
 				of artifacts. We use this here so that we always get the correct versions
 				of artifacts. -->
 			<dependency>
@@ -153,12 +201,17 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${version.mysql}</version>
 		</dependency>
+		<dependency>
+    <groupId>io.fabric8</groupId>
+    <artifactId>docker-maven-plugin</artifactId>
+    <version>0.24.0</version>
+</dependency>
 
 	</dependencies>
 
 	<build>
 		<!-- Maven will append the version to the finalName (which is the name
-			given to the generated war, and hence the context root) -->
+		     			given to the generated war, and hence the context root) -->
 		<finalName>${project.artifactId}</finalName>
 		<resources>
 			<resource>
@@ -192,16 +245,38 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+			<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+		 <configuration>
+         <name>newversion.timestamp</name>
+         <pattern>yyyy.MM.dd.HH.mm.ss</pattern>
+         </configuration>
+        <executions>
+          <execution>
+            <id>parse-version</id>
+            <goals>
+              <goal>parse-version</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+	<plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.24.0</version>
+                </plugin>
+   </plugins>
 	</build>
-    <distributionManagement>
+	<distributionManagement>
     <snapshotRepository>
       <id>nexus-snapshots</id>
-      <url>http://192.168.56.102:8081/repository/maven-snapshots/</url>
+      <url>http://192.168.56.100:8081/repository/maven-hosted-releaseversions/</url>
     </snapshotRepository>
     <repository>
-      <id>nexus-releases</id>
-      <url>http://192.168.56.102:8081/repository/maven-releases/</url>
+      <id>net.apmoller.crb.devops.releases</id>
+      <url>http://192.168.56.100:8081/repository/maven-hosted-releaseversions/</url>
     </repository>
   </distributionManagement>
 </project>

@@ -157,12 +157,6 @@ http://192.168.56.101:8081/repository/maven-hosted-releaseversions/
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>jpa</artifactId>
 		</dependency>
-                <dependency>
-   		 <groupId>org.codehaus.sonar-plugins.java</groupId>
-    		<artifactId>sonar-jacoco-listeners</artifactId>
-   		 <version>3.1.1</version>
-    		<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>

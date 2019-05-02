@@ -64,48 +64,6 @@
 
 	<!--  define our 3 standard maven repositories  -->
 <repositories>
-<repository>
-<id>com.redhat.developers.guestbook</id>
-<name>DevOps release repository</name>
-<url>
-http://192.168.56.100:8081/repository/maven-hosted-releaseversions/
-</url>
-<releases>
-<enabled>true</enabled>
-<updatePolicy>never</updatePolicy>
-</releases>
-<snapshots>
-<enabled>false</enabled>
-</snapshots>
-</repository>
-<repository>
-<id>com.redhat.developers.guestbook.isolated</id>
-<name>DevOps snapshots repository</name>
-<url>
-http://192.168.56.100:8081/repository/maven-hosted-releaseversions/
-</url>
-<releases>
-<enabled>false</enabled>
-<updatePolicy>never</updatePolicy>
-</releases>
-<snapshots>
-<enabled>true</enabled>
-</snapshots>
-</repository>
-<repository>
-<id>com.redhat.developers.guestbook.isolatedi-deploy-pointer</id>
-<name>DevOps thirdparty repository</name>
-<url>
-http://192.168.56.101:8081/repository/maven-hosted-releaseversions/
-</url>
-<releases>
-<enabled>true</enabled>
-<updatePolicy>never</updatePolicy>
-</releases>
-<snapshots>
-<enabled>false</enabled>
-</snapshots>
-</repository>
 </repositories>
  
 	<dependencyManagement>

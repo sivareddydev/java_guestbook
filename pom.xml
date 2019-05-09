@@ -21,7 +21,7 @@
 
 	<groupId>com.redhat.developers.guestbook</groupId>
 	<artifactId>guestbook-service</artifactId>
-	<version>1.5</version>
+	<version>1.6</version>
 	<packaging>war</packaging>
 	<name>guestbook</name>
 	<description>Guestbook microservice running on WildFly Swarm</description>

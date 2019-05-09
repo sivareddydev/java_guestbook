@@ -1,7 +1,8 @@
 FROM centos:7
-
 USER root
-ENV JAVA_HOME /usr/lib/jvm/java
+ENV http_proxy=http://165.225.106.34:80
+ENV https_proxy=https://165.225.106.34:80
+
 RUN yum -y install java-1.8.0-openjdk-devel && yum clean all
 
 RUN yum update -y && yum -y install xmlstarlet saxon augeas bsdtar unzip && yum clean all

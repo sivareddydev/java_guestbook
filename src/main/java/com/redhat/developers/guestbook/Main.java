@@ -30,7 +30,7 @@ public class Main {
 			d.driverModuleName("com.mysql");
 		}).dataSource("MySQLDS", (ds) -> {
 			ds.driverName("com.mysql");
-                        ds.connectionUrl(System.getenv().getOrDefault("JDBC_URL", "jdbc:mysql://0.0.0.0:3306/guestbook?useSSL=false&autoReconnect=true"));
+                        ds.connectionUrl(System.getenv().getOrDefault("JDBC_URL", "jdbc:mysql://mysql:3306/guestbook?useSSL=false&autoReconnect=true"));
 			ds.userName(System.getenv().getOrDefault("DATASOURCE_USERNAME", "sivareddy"));
 			ds.password(System.getenv().getOrDefault("DATASOURCE_PASSWORD", "sivareddy"));
 			ds.backgroundValidation(true);

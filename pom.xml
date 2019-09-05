@@ -204,6 +204,22 @@
 					</execution>
 				</executions>
 			</plugin>
+			  <plugins>
+                        <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.16.5</version>
+                        <configuration>
+                         <images>
+                        <image>
+                        <name>arquillian/age-checker:${project.version}</name>
+                        <build>
+                <dockerFileDir>${project.basedir}</dockerFileDir>
+            </build>
+          </image>
+        </images>
+      </configuration>
+    </plugin>
 			<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -231,11 +247,11 @@
 	<distributionManagement>
     <snapshotRepository>
       <id>nexus-snapshots</id>
-      <url>http://192.168.56.100:8081/repository/maven-hosted-releaseversions/</url>
+      <url>http://192.168.56.99:8081/repository/maven-hosted-releaseversions/</url>
     </snapshotRepository>
     <repository>
       <id>net.apmoller.crb.devops.releases</id>
-      <url>http://192.168.56.100:8081/repository/maven-hosted-releaseversions/</url>
+      <url>http://192.168.56.99:8081/repository/maven-hosted-releaseversions/</url>
     </repository>
   </distributionManagement>
 </project>

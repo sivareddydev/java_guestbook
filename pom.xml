@@ -204,7 +204,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			  <plugins>
                         <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
